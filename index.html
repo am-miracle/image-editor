@@ -12,33 +12,33 @@
 
 </head>
 <body>
-    <div class="container">
+    <div class="container disable">
         <h2>Image Editor</h2>
         <div class="wrapper">
             <div class="editor-panel">
                 <div class="filter">
                     <label for="" class="title">Filters</label>
                     <div class="options">
-                        <button class="active">Brightness</button>
-                        <button>Saturation</button>
-                        <button>Inversion</button>
-                        <button>Grayscale</button>
+                        <button id="brightness" class="active">Brightness</button>
+                        <button id="saturation">Saturation</button>
+                        <button id="inversion">Inversion</button>
+                        <button id="grayscale">Grayscale</button>
                     </div>
                     <div class="slider">
                         <div class="filter-info">
                             <p class="name">Brightness</p>
                             <p class="value">100%</p>
                         </div>
-                        <input type="range" value="100" min="0" max="200">
+                        <input type="range" value="100" min="0" max="200" aria-label="range">
                     </div>
                 </div>
                 <div class="rotate">
                     <label for="" class="title">Rotate & Flip</label>
                     <div class="options">
-                        <button><i class="fa-solid fa-rotate-left"></i></button>
-                        <button><i class="fa-solid fa-rotate-right"></i></button>
-                        <button><i class='bx bx-reflect-vertical'></i></button>
-                        <button><i class="bx bx-reflect-horizontal"></i></button>
+                        <button id="left"><i class="fa-solid fa-rotate-left"></i></button>
+                        <button id="right"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button id="vertical"><i class='bx bx-reflect-vertical'></i></button>
+                        <button id="horizontal"><i class="bx bx-reflect-horizontal"></i></button>
                     </div>
                 </div>
             </div>
