@@ -6,7 +6,9 @@ filterSlider = document.querySelector('.slider input'),
 rotateOptions = document.querySelectorAll('.rotate button'),
 previewImg = document.querySelector('.preview-img img'),
 resetFilterBtn = document.querySelector('.reset-filter'),
-chooseImgBtn = document.querySelector('.choose-img');
+chooseImgBtn = document.querySelector('.choose-img'),
+saveImgBtn = document.querySelector('.save-img');
+
 
 let brightness = 100, saturation = 100, inversion = 0, grayscale = 0;
 let rotate = 0, flipHorizontal = 1, flipVertical = 1;
@@ -21,6 +23,7 @@ const loadImage = () => {
     if(!file) return; // return if user has not selected a file
     previewImg.src = URL.createObjectURL(file) // passing file url as preview img src
     previewImg.addEventListener('load', () => {
+        resetFilterBtn.click(); // clicking reset btn, so that the filter value reset if the user select new image
         document.querySelector('.container').classList.remove('disable')
     })
 }
@@ -98,8 +101,30 @@ const resetFilter = () => {
     applyFilters()
 }
 
+const saveImage = () => {
+    const canvas = document.createElement("canvas"); //creating a canvas element
+    const ctx = canvas.getContext('2d'); // convas.getContext return a drawing context on canvas
+    canvas.width = previewImg.naturalWidth; // setting canvas width to actual image width
+    canvas.height = previewImg.naturalHeight; // setting canvas height to actual image height
+
+    // applying users selected filters to canvas filter
+    ctx.filter =  `brightness(${brightness}) saturate(${saturation}) invert(${inversion}) grayscale(${grayscale})`;
+    ctx.translate(canvas.width / 2, canvas.height /2); // translating canvas from center
+    if (rotate !== 0) { // if rotate isn't value, rotate the canvas
+        ctx.rotate(rotate * Math.PI / 180)
+    }
+    ctx.scale(flipHorizontal, flipVertical ) // flip canvas, vertically/horizontally
+    ctx.drawImage(previewImg, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+
+    const link = document.createElement('a'); // creating a link tag
+    link.download = 'image.jpeg'; // passing <a> tag download value to "image.jpg"
+    link.href = canvas.toDataURL(); // passing <a> href value to canvas data url
+    link.click(); // clicking on the <a> tag to download the image
+}
+
 fileInput.addEventListener('change', loadImage);
 filterSlider.addEventListener('input', updateFilter);
 resetFilterBtn.addEventListener('click', resetFilter);
+saveImgBtn.addEventListener('click', saveImage);
 chooseImgBtn.addEventListener('click', () => fileInput.click());
 
