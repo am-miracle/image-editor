@@ -10,13 +10,6 @@ chooseImgBtn = document.querySelector('.choose-img'),
 saveImgBtn = document.querySelector('.save-img');
 
 
-let brightness = 100, saturation = 100, inversion = 0, grayscale = 0;
-let rotate = 0, flipHorizontal = 1, flipVertical = 1;
-
-const applyFilters = () => {
-    previewImg.style.transform = `rotate(${rotate}deg) scale(${flipHorizontal}, ${flipVertical})`;
-    previewImg.style.filter = `brightness(${brightness}) saturate(${saturation}) invert(${inversion}) grayscale(${grayscale})`;
-}
 
 const loadImage = () => {
     let file = fileInput.files[0] //getting user selected file
@@ -26,6 +19,14 @@ const loadImage = () => {
         resetFilterBtn.click(); // clicking reset btn, so that the filter value reset if the user select new image
         document.querySelector('.container').classList.remove('disable')
     })
+}
+
+let brightness = 1, saturation = 1, inversion = 0, grayscale = 0;
+let rotate = 0, flipHorizontal = 1, flipVertical = 1;
+
+const applyFilters = () => {
+    previewImg.style.transform = `rotate(${rotate}deg) scale(${flipHorizontal}, ${flipVertical})`;
+    previewImg.style.filter = `brightness(${brightness}) saturate(${saturation}) invert(${inversion}) grayscale(${grayscale})`;
 }
 
 filterOptions.forEach(option => {
@@ -95,7 +96,7 @@ rotateOptions.forEach(option => {
 
 const resetFilter = () => {
     // resetting all variable value to its default value
-    brightness = 10; saturation = 100; inversion = 0; grayscale = 0;
+    brightness = 1; saturation = 1; inversion = 0; grayscale = 0;
     rotate = 0; flipHorizontal = 1; flipVertical = 1;
     filterOptions[0].click(); // clicking brightness btn, so the brightness is selected by default
     applyFilters()
